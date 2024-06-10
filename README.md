@@ -10,7 +10,7 @@ This repo contains the code and assets for the "Godot 4 in 1 min!" tutorials I p
 
 Also, as of now, the repo contains the code and assets for the following tutorials:
 
-## 00. Time counter
+## 01. Time counter
 
 - Watch on YouTube: [in English 🇬🇧](https://www.youtube.com/watch?v=WsWDAesThiU)
 - See the files [in the repo](/01-TimeCounter/)
