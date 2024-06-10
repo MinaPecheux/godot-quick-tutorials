@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3 uid="uid://bh4kj3dvaj7rh"]
+
+[ext_resource type="Script" path="res://01-TimeCounter/TimeCounter.cs" id="1_8dmk1"]
+
+[node name="Root" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8dmk1")
+
+[node name="BG" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.172549, 0.243137, 0.313726, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.92549, 0.941176, 0.945098, 1)
+theme_override_colors/font_shadow_color = Color(0.901961, 0.494118, 0.133333, 1)
+theme_override_colors/font_outline_color = Color(0.92549, 0.941176, 0.945098, 1)
+theme_override_constants/shadow_offset_y = 15
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 240
+text = "00:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_OnTimerTimeout"]
