@@ -12,7 +12,7 @@ Also, as of now, the repo contains the code and assets for the following tutoria
 
 ## 01. Time counter
 
-- Watch on YouTube: [in English 🇬🇧](https://www.youtube.com/watch?v=WsWDAesThiU)
+- Watch on YouTube: [in English 🇬🇧](https://www.youtube.com/watch?v=PYx2bW_SN0A)
 - See the files [in the repo](/01-TimeCounter/)
 
 ![cover-01_TimeCounter](/doc/01_TimeCounter.png)
