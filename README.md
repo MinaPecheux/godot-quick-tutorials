@@ -1,4 +1,4 @@
-# [Godot/C#] Quick Tutorials
+# [Godot | GDScript + C#] Quick Tutorials
 
 **Mina Pêcheux - Since June 2024**
 
