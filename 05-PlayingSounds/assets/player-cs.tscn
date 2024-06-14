@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://diymud3vamxj"]
+
+[ext_resource type="Texture2D" uid="uid://d2okx7qd0nhso" path="res://05-PlayingSounds/art/sprites/ship.png" id="1_06osi"]
+[ext_resource type="Script" path="res://05-PlayingSounds/scripts/CS/Player.cs" id="1_re7du"]
+[ext_resource type="AudioStream" uid="uid://b16hncp7uu3tp" path="res://05-PlayingSounds/art/audio/pickup.ogg" id="2_yxp6p"]
+[ext_resource type="AudioStream" uid="uid://dnmfrdsxl4gnm" path="res://05-PlayingSounds/art/audio/hit.ogg" id="3_ub5xb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_djm8e"]
+radius = 64.0
+
+[node name="PlayerCS" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 2
+motion_mode = 1
+script = ExtResource("1_re7du")
+_pickupAudio = ExtResource("2_yxp6p")
+_hitAudio = ExtResource("3_ub5xb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_djm8e")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.57079
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_06osi")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_djm8e")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[connection signal="body_entered" from="Area2D" to="." method="_OnArea2DBodyEntered"]

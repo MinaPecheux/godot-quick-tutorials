@@ -1,0 +1,77 @@
+[gd_scene load_steps=10 format=3 uid="uid://chxytnvun2uit"]
+
+[ext_resource type="AudioStream" uid="uid://bxtqqlp67riw2" path="res://05-PlayingSounds/art/audio/engine.ogg" id="1_mr7ve"]
+[ext_resource type="Shader" path="res://05-PlayingSounds/art/shaders/scrolling-texture.gdshader" id="2_bxd47"]
+[ext_resource type="Texture2D" uid="uid://cbjr4l3hth0lu" path="res://05-PlayingSounds/art/textures/stars.png" id="3_sj6ml"]
+[ext_resource type="Script" path="res://05-PlayingSounds/scripts/CS/ScreenShake.cs" id="4_yep8q"]
+[ext_resource type="Script" path="res://05-PlayingSounds/scripts/CS/Spawner.cs" id="5_jintu"]
+[ext_resource type="PackedScene" uid="uid://bjh66i121dotj" path="res://05-PlayingSounds/assets/item-cs.tscn" id="6_btcka"]
+[ext_resource type="PackedScene" uid="uid://diymud3vamxj" path="res://05-PlayingSounds/assets/player-cs.tscn" id="7_b3i1b"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fo0ky"]
+shader = ExtResource("2_bxd47")
+shader_parameter/speed = 0.4
+shader_parameter/tex = ExtResource("3_sj6ml")
+
+[sub_resource type="Curve2D" id="Curve2D_bbout"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1920, 0, 0, 0, 0, 0, 1920, 1080)
+}
+point_count = 2
+
+[node name="Root" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AudioEngine" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_mr7ve")
+volume_db = -10.0
+autoplay = true
+
+[node name="Background" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_fo0ky")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_sj6ml")
+
+[node name="ScriptType" type="Label" parent="."]
+offset_left = 35.0
+offset_top = 20.0
+offset_right = 152.0
+offset_bottom = 130.0
+theme_override_colors/font_color = Color(1, 1, 1, 0.501961)
+theme_override_font_sizes/font_size = 80
+text = "C#"
+
+[node name="ScreenShake" type="Node" parent="."]
+script = ExtResource("4_yep8q")
+
+[node name="Camera2D" type="Camera2D" parent="ScreenShake"]
+anchor_mode = 0
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_bbout")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D" node_paths=PackedStringArray("_itemSpawnTimer")]
+position = Vector2(1920, 0)
+rotation = 1.5708
+script = ExtResource("5_jintu")
+_itemPrefab = ExtResource("6_btcka")
+_itemSpawnTimer = NodePath("SpawnTimer")
+
+[node name="SpawnTimer" type="Timer" parent="Path2D/PathFollow2D"]
+one_shot = true
+autostart = true
+
+[node name="PlayerCS" parent="." instance=ExtResource("7_b3i1b")]
+position = Vector2(540, 540)
+
+[connection signal="timeout" from="Path2D/PathFollow2D/SpawnTimer" to="Path2D/PathFollow2D" method="_Spawn"]
