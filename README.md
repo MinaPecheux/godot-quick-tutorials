@@ -25,3 +25,23 @@ Also, as of now, the repo contains the code and assets for the following tutoria
 - See the files [in the repo](/02-TopDownDemo/)
 
 ![cover-02_TopDownMovement](/doc/02_TopDownMovement.png)
+
+## 03. 2D camera follow
+
+- Watch on YouTube: [in English 🇬🇧](https://www.youtube.com/watch?v=nfA0aKMDIyE)
+- See the files [in the repo](/02-TopDownDemo/)
+
+![cover-03_2DCameraFollow](/doc/03_2DCameraFollow.png)
+
+## 04. Quick 3D setup
+
+- Watch on YouTube: [in English 🇬🇧](https://www.youtube.com/watch?v=uS1JoOM4D0Q)
+
+![cover-04_3DSceneSetup](/doc/04_3DSceneSetup.png)
+
+## 05. Playing sounds
+
+- Watch on YouTube: [in English 🇬🇧](https://www.youtube.com/watch?v=8RECF55sK_o)
+- See the files [in the repo](/05-PlayingSounds/)
+
+![cover-05_PlayingSounds](/doc/05_PlayingSounds.png)
