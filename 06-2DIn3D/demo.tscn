@@ -1,0 +1,133 @@
+[gd_scene load_steps=14 format=3 uid="uid://cum6pf37fgfr2"]
+
+[ext_resource type="Texture2D" uid="uid://u6gge35ui54j" path="res://06-2DIn3D/art/grid.png" id="1_5vbv8"]
+[ext_resource type="Shader" path="res://06-2DIn3D/art/borders.gdshader" id="2_3ge1a"]
+[ext_resource type="Script" path="res://06-2DIn3D/Player.gd" id="3_lrqdb"]
+
+[sub_resource type="Environment" id="Environment_clso1"]
+background_mode = 1
+background_color = Color(0.164706, 0.184314, 0.239216, 1)
+tonemap_mode = 2
+fog_enabled = true
+fog_density = 0.003
+adjustment_enabled = true
+adjustment_saturation = 1.37
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_xbyjs"]
+size = Vector2(40, 40)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1r1ce"]
+albedo_texture = ExtResource("1_5vbv8")
+uv1_scale = Vector3(2, 2, 2)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_oe5p8"]
+size = Vector2(10.1, 10.1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_imbjx"]
+render_priority = 0
+shader = ExtResource("2_3ge1a")
+shader_parameter/color = Color(1, 0, 0, 0.423529)
+shader_parameter/thickness = 0.01
+
+[sub_resource type="SphereMesh" id="SphereMesh_ah858"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ueakb"]
+albedo_color = Color(1, 0, 0.0431373, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_4f4mg"]
+viewport_path = NodePath("Player/Sprite3D/SubViewport")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l7au0"]
+bg_color = Color(0.172549, 0.176471, 0.231373, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kymok"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
+[node name="Root" type="Node3D"]
+
+[node name="SCENE" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="SCENE"]
+transform = Transform3D(0.83295, -0.260063, 0.488428, 1.11759e-08, 0.882677, 0.469981, -0.553348, -0.39147, 0.735226, 6.03067, 6.17676, 9.31917)
+fov = 30.0
+
+[node name="DirectionalLight3D" type="OmniLight3D" parent="SCENE"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
+light_energy = 8.0
+shadow_enabled = true
+omni_range = 20.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SCENE"]
+environment = SubResource("Environment_clso1")
+
+[node name="Ground" type="MeshInstance3D" parent="SCENE"]
+mesh = SubResource("PlaneMesh_xbyjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_1r1ce")
+
+[node name="Borders" type="MeshInstance3D" parent="SCENE"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+mesh = SubResource("PlaneMesh_oe5p8")
+surface_material_override/0 = SubResource("ShaderMaterial_imbjx")
+
+[node name="Player" type="Node3D" parent="."]
+script = ExtResource("3_lrqdb")
+
+[node name="Sphere" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("SphereMesh_ah858")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_ueakb")
+
+[node name="Sprite3D" type="Sprite3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
+pixel_size = 0.0065
+billboard = 1
+texture = SubResource("ViewportTexture_4f4mg")
+
+[node name="SubViewport" type="SubViewport" parent="Player/Sprite3D"]
+transparent_bg = true
+size = Vector2i(256, 80)
+
+[node name="ProgressBar" type="ProgressBar" parent="Player/Sprite3D/SubViewport"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 30)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -15.0
+offset_right = 80.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_l7au0")
+theme_override_styles/fill = SubResource("StyleBoxFlat_kymok")
+show_percentage = false
+
+[node name="Instructions" type="Label" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -341.5
+offset_top = -150.0
+offset_right = 341.5
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 62
+text = "Press <Space> to move"
