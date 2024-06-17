@@ -45,3 +45,10 @@ Also, as of now, the repo contains the code and assets for the following tutoria
 - See the files [in the repo](/05-PlayingSounds/)
 
 ![cover-05_PlayingSounds](/doc/05_PlayingSounds.png)
+
+## 06. 2D in 3D
+
+- Watch on YouTube: [in English 🇬🇧](https://www.youtube.com/watch?v=yVZR06ykgEQ)
+- See the files [in the repo](/06-2DIn3D/)
+
+![cover-06_2DIn3D](/doc/06_2DIn3D.png)
