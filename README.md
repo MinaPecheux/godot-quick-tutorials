@@ -52,3 +52,10 @@ Also, as of now, the repo contains the code and assets for the following tutoria
 - See the files [in the repo](/06-2DIn3D/)
 
 ![cover-06_2DIn3D](/doc/06_2DIn3D.png)
+
+## 07. 3D trigger zone
+
+- Watch on YouTube: [in English 🇬🇧](https://www.youtube.com/watch?v=iEmiLN9twqA)
+- See the files [in the repo](/07-3DTriggerZone/)
+
+![cover-07_3DTriggerZone](/doc/07_3DTriggerZone.png)
