@@ -1,0 +1,192 @@
+[gd_scene load_steps=20 format=3 uid="uid://bcwqtpy56rjwk"]
+
+[ext_resource type="Texture2D" uid="uid://b2fmyu2tvcpi5" path="res://07-3DTriggerZone/art/grid.png" id="1_8gat5"]
+[ext_resource type="PackedScene" uid="uid://c2ynu6ih3yer5" path="res://07-3DTriggerZone/assets/barbarian.tscn" id="1_efjxp"]
+[ext_resource type="Shader" path="res://07-3DTriggerZone/art/shaders/zone-debug.gdshader" id="2_jo6cv"]
+[ext_resource type="PackedScene" uid="uid://b34rg614ys138" path="res://07-3DTriggerZone/assets/rogue.tscn" id="4_2ilq4"]
+[ext_resource type="Script" path="res://07-3DTriggerZone/scripts/Rogue.cs" id="4_l4d4x"]
+[ext_resource type="Script" path="res://07-3DTriggerZone/scripts/Barbarian.cs" id="5_4ly6g"]
+[ext_resource type="PackedScene" uid="uid://bbt6224m53oxn" path="res://07-3DTriggerZone/assets/move_marker.tscn" id="5_kb6c0"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dx6gp"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_sga5y"]
+sky_material = SubResource("ProceduralSkyMaterial_dx6gp")
+
+[sub_resource type="Environment" id="Environment_du6kf"]
+background_mode = 2
+sky = SubResource("Sky_sga5y")
+tonemap_mode = 2
+glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.686275, 0.498039, 0.443137, 1)
+fog_density = 0.012
+adjustment_enabled = true
+adjustment_brightness = 1.05
+adjustment_contrast = 1.1
+adjustment_saturation = 1.5
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_yq6wx"]
+vertices = PackedVector3Array(-9.5, 0.45, -9.5, -9.5, 0.45, 9.5, 9.5, 0.45, 9.5, 9.5, 0.45, -9.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+geometry_parsed_geometry_type = 1
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_6jakn"]
+size = Vector2(60, 80)
+center_offset = Vector3(0, -0.01, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g57vu"]
+albedo_texture = ExtResource("1_8gat5")
+uv1_scale = Vector3(2, 2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ahvmg"]
+size = Vector3(20, 0.1, 20)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_vsj7t"]
+size = Vector2(10, 10)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mbhn4"]
+render_priority = 0
+shader = ExtResource("2_jo6cv")
+shader_parameter/color = Color(0.235294, 1, 0.0588235, 0.392157)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_r8mmn"]
+viewport_path = NodePath("SCENE/Barbarian/WarnIcon/SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_55gfi"]
+viewport_path = NodePath("SCENE/Barbarian/AlertIcon/SubViewport")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_cflq8"]
+radius = 5.0
+
+[node name="Root" type="Node3D"]
+
+[node name="Instructions" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -341.5
+offset_top = 64.0
+offset_right = 341.5
+offset_bottom = 150.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 62
+text = "<Right-click> to move"
+horizontal_alignment = 1
+
+[node name="SCENE" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SCENE"]
+environment = SubResource("Environment_du6kf")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SCENE"]
+transform = Transform3D(1, -1.51421e-07, 8.74228e-08, 0, 0.5, 0.866025, -1.74846e-07, -0.866025, 0.5, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="SCENE"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.938812, 0.34443, 0, -0.34443, 0.938812, 0, 4.7594, 11.3403)
+fov = 40.0
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="SCENE"]
+navigation_mesh = SubResource("NavigationMesh_yq6wx")
+
+[node name="Ground" type="StaticBody3D" parent="SCENE/NavigationRegion3D"]
+collision_layer = 2
+
+[node name="Mesh" type="MeshInstance3D" parent="SCENE/NavigationRegion3D/Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -28)
+mesh = SubResource("PlaneMesh_6jakn")
+skeleton = NodePath("../../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_g57vu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SCENE/NavigationRegion3D/Ground"]
+shape = SubResource("BoxShape3D_ahvmg")
+
+[node name="ZoneDebug" type="MeshInstance3D" parent="SCENE"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+mesh = SubResource("PlaneMesh_vsj7t")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("ShaderMaterial_mbhn4")
+
+[node name="Rogue" parent="SCENE" instance=ExtResource("4_2ilq4")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7.27564, 0, 0)
+script = ExtResource("4_l4d4x")
+_targetPointPrefab = ExtResource("5_kb6c0")
+
+[node name="Barbarian" parent="SCENE" instance=ExtResource("1_efjxp")]
+script = ExtResource("5_4ly6g")
+state = 0
+
+[node name="WarnIcon" type="Sprite3D" parent="SCENE/Barbarian"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2, 0)
+visible = false
+texture = SubResource("ViewportTexture_r8mmn")
+
+[node name="SubViewport" type="SubViewport" parent="SCENE/Barbarian/WarnIcon"]
+transparent_bg = true
+size = Vector2i(128, 128)
+
+[node name="Label" type="Label" parent="SCENE/Barbarian/WarnIcon/SubViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -22.5
+offset_right = 20.0
+offset_bottom = 22.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.941176, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 2
+theme_override_constants/shadow_outline_size = 4
+theme_override_font_sizes/font_size = 120
+text = "?"
+horizontal_alignment = 1
+
+[node name="AlertIcon" type="Sprite3D" parent="SCENE/Barbarian"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2, 0)
+visible = false
+texture = SubResource("ViewportTexture_55gfi")
+
+[node name="SubViewport" type="SubViewport" parent="SCENE/Barbarian/AlertIcon"]
+transparent_bg = true
+size = Vector2i(128, 128)
+
+[node name="Label" type="Label" parent="SCENE/Barbarian/AlertIcon/SubViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -22.5
+offset_right = 20.0
+offset_bottom = 22.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 2
+theme_override_constants/shadow_outline_size = 4
+theme_override_font_sizes/font_size = 120
+text = "!"
+horizontal_alignment = 1
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_cflq8")
+
+[connection signal="body_entered" from="Area3D" to="SCENE/Barbarian" method="_OnBodyEntered"]
+[connection signal="body_exited" from="Area3D" to="SCENE/Barbarian" method="_OnBodyExited"]
