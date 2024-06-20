@@ -1,0 +1,81 @@
+[gd_scene load_steps=9 format=3 uid="uid://bt4oeeiqgh1ib"]
+
+[ext_resource type="FontFile" uid="uid://cj8uq83ei12q6" path="res://08-RichTextLabel/art/GILB____.TTF" id="2_xcogd"]
+[ext_resource type="FontFile" uid="uid://dno8nammtwo8r" path="res://08-RichTextLabel/art/GIL_____.TTF" id="3_aimyi"]
+[ext_resource type="FontFile" uid="uid://bcjl5kyhe3ggd" path="res://08-RichTextLabel/art/GILI____.TTF" id="4_tdvk0"]
+[ext_resource type="FontFile" uid="uid://guwq6r5mxugs" path="res://08-RichTextLabel/art/GILC____.TTF" id="5_1vmsm"]
+[ext_resource type="FontFile" uid="uid://od8yxkhghd42" path="res://08-RichTextLabel/art/GILBI___.TTF" id="5_b3mds"]
+[ext_resource type="Script" path="res://08-RichTextLabel/LabelUpdater.gd" id="6_1bbyt"]
+
+[sub_resource type="Gradient" id="Gradient_14xuw"]
+colors = PackedColorArray(0.945098, 0.768627, 0.0588235, 1, 0.901961, 0.494118, 0.133333, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_t5ryg"]
+gradient = SubResource("Gradient_14xuw")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="Root" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_t5ryg")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -17.0
+offset_right = 400.0
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(400, 40)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_aimyi")
+theme_override_fonts/bold_font = ExtResource("2_xcogd")
+theme_override_fonts/italics_font = ExtResource("4_tdvk0")
+theme_override_fonts/bold_italics_font = ExtResource("5_b3mds")
+theme_override_fonts/mono_font = ExtResource("5_1vmsm")
+theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/bold_font_size = 64
+theme_override_font_sizes/italics_font_size = 64
+theme_override_font_sizes/bold_italics_font_size = 64
+theme_override_font_sizes/mono_font_size = 64
+bbcode_enabled = true
+text = "[center]Let's do some styling in [img=80]res://icon.svg[/img]![/center]"
+fit_content = true
+script = ExtResource("6_1bbyt")
+
+[node name="Instructions" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -399.5
+offset_top = -119.0
+offset_right = 399.5
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 36
+text = "Press <Space> to stylise/unstylise the text"
+horizontal_alignment = 1
