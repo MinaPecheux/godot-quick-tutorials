@@ -59,3 +59,10 @@ Also, as of now, the repo contains the code and assets for the following tutoria
 - See the files [in the repo](/07-3DTriggerZone/)
 
 ![cover-07_3DTriggerZone](/doc/07_3DTriggerZone.png)
+
+## 08. Rich text label
+
+- Watch on YouTube: [in English 🇬🇧](https://www.youtube.com/watch?v=4YE15tom0RI)
+- See the files [in the repo](/08-RichTextLabel/)
+
+![cover-08_RichTextLabel](/doc/08_RichTextLabel.png)
